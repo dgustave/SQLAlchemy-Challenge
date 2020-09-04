@@ -1,7 +1,7 @@
 # Initialize Global Dependencies:
 import sqlalchemy 
 from flask import Flask
-from Flask import SQLAlchemy 
+from flask import SQLAlchemy 
 from config import config 
 from models import Measurements, Stations
 
