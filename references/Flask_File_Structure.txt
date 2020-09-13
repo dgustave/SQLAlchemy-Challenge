@@ -22,7 +22,7 @@ Project (Frontend | Backend)_NAME
 │   ├── settings.py
 │   │
 │   ├── config/ 
-│   │    └──__init__.py
+│   │    └──test&dev&prod.py
 │   ├── models/
 │   │	 └──__init__.py
 │   ├── views/
@@ -36,10 +36,11 @@ Project (Frontend | Backend)_NAME
 │   │ 
 │   ├── templates/
 │   │    └──base.html
-│   └── static/
-│        └── style.css
-├── venv/
+│   ├── static/
+│   │     └── style.css
+│   └── run.py
+│
+├── "name_of_env"(pipenv)/
 ├── pipfile & piplock
 ├── setup.py
-├── run.py
 └── MANIFEST.in

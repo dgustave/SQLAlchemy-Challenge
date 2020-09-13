@@ -1,8 +1,17 @@
-from apply.apps.models.measurement import Measurement
-from apply.apps.models.station import Station, session, func
-from flask import render_template, jsonify, request 
+from app import jsonify, settings
+from app.models import Measurement, Station, func, engine, db
+from sqlalchemy.orm import Session 
 from datetime import datetime as dt
-from apply.apps import settings
+
+session = Session(engine)
+
+# find the last date in the database
+last_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+
+# Calculate the date 1 year ago from the last data point in the database
+query_date = dt.date(2017,8,23) - dt.timedelta(days=365)
+
+session.close()
 
 
 # Home page.
@@ -10,22 +19,22 @@ from apply.apps import settings
 
 @app.route('/')
 def index():
-    """List all available api routes."""
+    return  ("""List all available api routes."""
     f"Available Routes:<br/>"
     f"Precipitation: /api/v1.0/precipitation<br/>"
     f"Stations: /api/v1.0/stations<br/>"
     f"Temperature for a year: /api/v1.0/tobs<br/>"
     f"Temperature stat from the start date(yyyy-mm-dd): /api/v1.0/yyyy-mm-dd<br/>"
     f"Temperature stat from start to end dates(yyyy-mm-dd): /api/v1.0/yyyy-mm-dd/yyyy-mm-dd"
-    f"Flask environment is set to: {settings['ENV']}"
-    return render_template("index.html")
+    f"Flask environment is set to: {settings['ENV']}")
+  
+    # render_template("index.html")
     
           
 # Convert the query results to a dictionary using `date` as the key and `prcp` as the value.
 # Return the JSON representation of your dictionary.
 @app.route('/api/v1.0/precipitation')
 def precipitation():
-    session = Session(engine)
     sel = [Measurement.date,Measurement.prcp]
     queryresult = session.query(*sel).all()
     session.close()
@@ -117,4 +126,6 @@ def get_start_end(start,end):
 
 def init_app(app):
     app.register_blueprint(Measurement)
-    app.register_blueprint(Station)    
+    app.register_blueprint(Station)   
+    db.init_app(app)
+    
