@@ -1,8 +1,0 @@
-name: Flask_Jmode
-channels:
-  - conda-forge
-  - defaults
-dependencies:
-  - flask
-  - pipfile
-prefix: C:\ProgramData\Anaconda3\envs\Flask_Jmode

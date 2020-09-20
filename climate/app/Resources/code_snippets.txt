@@ -1,7 +1,0 @@
-Flask Tutorial: 
-https://www.youtube.com/watch?v=v6b4tggM7M0
-
-
-Creating secrete keys with enviroment variables: 
-https://www.youtube.com/watch?v=IolxqkL7cD8
-
